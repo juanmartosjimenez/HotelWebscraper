@@ -19,6 +19,8 @@ def my_form_post():
     location = request.form['location']
     datesin = str(request.form['indate-y'] + "-" + request.form['indate-m'] + "-" + request.form['indate-d'])
     datesout = str(request.form['outdate-y'] + "-" + request.form['outdate-m'] + "-" + request.form['outdate-d'])
+    tripadvisorname = request.form['tripadvisorname']
+    bookingname = request.form['bookingname']
 
     #path1 = 'images/carcabueybooking.png'
     #path2 = 'images/carcabueytripadvisor.png'
@@ -30,8 +32,8 @@ def my_form_post():
     tripadvisorpathname = "static/images/" + location + "tripadvisor" + ".png"
     path1 = bookingpathname.replace("static", "")
     path2 = tripadvisorpathname.replace("static", "")
-    initialize('csvfiles/madridbooking.csv', "booking", "madridbooking", 1)
-    initialize('csvfiles/madridtripadvisor.csv', "tripadvisor", "madridtripadvisor", 2)
+    initialize('csvfiles/madridbooking.csv', "madridbooking", 1, "juan bravo")
+    initialize('csvfiles/madridtripadvisor.csv', "madridtripadvisor", 2, "juan bravo")
     return render_template('result.html', location=location, indate=datesin, outdate=datesout, path1=path1, path2=path2)
 
 @app.route('/<path:path>')
