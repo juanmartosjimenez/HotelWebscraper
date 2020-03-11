@@ -32,9 +32,10 @@ def my_form_post():
     tripadvisorpathname = "static/images/" + location + "tripadvisor" + ".png"
     path1 = bookingpathname.replace("static", "")
     path2 = tripadvisorpathname.replace("static", "")
-    initialize('csvfiles/madridbooking.csv', "madridbooking", 1, "juan bravo")
-    initialize('csvfiles/madridtripadvisor.csv', "madridtripadvisor", 2, "juan bravo")
-    return render_template('result.html', location=location, indate=datesin, outdate=datesout, path1=path1, path2=path2)
+    notfoundbooking, bookingrating, bookingsoldout= initialize('csvfiles/madridbooking.csv', "madridbooking", 1, "hewi gj")
+    notfoundtripadvisor, tripadvisorrating, tripadvisorsoldout= initialize('csvfiles/madridtripadvisor.csv', "madridtripadvisor", 2, "juan bravo")
+    propertyname = [bookingname, tripadvisorname]
+    return render_template('result.html', location=location, indate=datesin, outdate=datesout, path1=path1, path2=path2, tripadvisorsoldout=tripadvisorsoldout, tripadvisorrating=tripadvisorrating, bookingsoldout=bookingsoldout, bookingrating=bookingrating, notfoundbooking = notfoundbooking, notfoundtripadvisor = notfoundtripadvisor, propertyname = propertyname)
 
 @app.route('/<path:path>')
 def send_js(path):

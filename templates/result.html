@@ -19,24 +19,68 @@
   display: table;
   clear: both;
 }
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+body {
+    background-color: lightblue;
+}
 </style>
 </head>
-<body>
-
+<body onload="notfound()">
 <h2>Results</h2>
-<h4>All places with no ratings are ignored, places that are sold out can't be plotted because they don't have a price</h4>
+<h4>Note: All places with no ratings are ignored, places that are sold out can't be plotted because they don't have a price</h4>
 <div class="row">
 <div class="column" style="background-color:#fc641d; font-weight:bold;">
 <h2>Booking</h2>
-    <p>For dates {{ indate }} to {{ outdate }}</p>
+
+<h3 id="notfoundbooking" style="background-color: white; font-weight:bold;"> </h3>
+<p>For dates {{ indate }} to {{ outdate }}, looking for property name "{{ propertyname[0] }}"</p>
 <img src= {{ path1 }} alt="Booking">
+<h3>Number of sold out properties: {{ bookingsoldout }} with an average rating: {{ bookingrating }}</h3>
 </div>
 <div class="column" style="background-color:#fc641d; font-weight:bold;">
 <h2>Tripadvisor</h2>
-   <p>For dates {{ indate }} to {{ outdate }}</p>
+
+<h3 id="notfoundtripadvisor" style="background-color: white; font-weight:bold;"> </h3>
+<p>For dates {{ indate }} to {{ outdate }} looking for property name "{{ propertyname[1] }}"</p>
 <img src= {{ path2 }} alt="Tripadvisor">
+<h3>Number of sold out properties: {{ tripadvisorsoldout }} with an average rating: {{ tripadvisorrating }}</h3>
+  </div>
 </div>
-</div>
+<script>
+var notfoundbooking = '{{ notfoundbooking }}';
+var notfoundtripadvisor = '{{ notfoundtripadvisor }}';
+function notfound() {
+    if (notfoundbooking=='True' && notfoundtripadvisor=='True'){
+        alert("We didn't find your property on either website, please very that the credentials you inputed are correct and that your property is not sold out for those dates, and run the webscraper again");
+    }
+    else if (notfoundbooking=='True'){
+        document.getElementById("notfoundbooking").innerHTML = "Property not found on Booking.com, make sure you didn't make a typo, that your property is available for those dates and that your property is available on that site";
+    }
+    else if (notfoundtripadvisor=='True'){
+        document.getElementById("notfoundtripadvisor").innerHTML = "Property not found on Tripadvisor, make sure you didn't make a typo, that your property is available for those dates and that your property is available on that site";
+    }
+}
+</script>
+
 </body>
 </html>
 

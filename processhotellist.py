@@ -17,8 +17,6 @@ def printlist(df):
 
 
 
-
-
 #compares an input string to the list of hotel names to find the closest match
 def fuzzy_merge(df1, closestmatch):
     pd.options.mode.chained_assignment = None
@@ -68,13 +66,14 @@ def plotvalsites(df, comb, figcount, closestmatch):
         for i, row in search.iterrows():
             ax.annotate(i, row, xytext=(price + 1, rating + 1), arrowprops=dict(facecolor='black', shrink=0.05))
     except Exception as e:
+        rank = True
         print(e)
         pass
     axes = plt.gca()
     axes.set_ylim([None, 10.5])
     pathname = 'static/images/' + comb + '.png'
     fig.savefig(pathname)
-    return fig
+    return rank
 
 
 #Creates a plot with cities, hotels, price and rating
@@ -119,20 +118,26 @@ def comparesites(*args):
     booking = dfull.loc['booking']
     fuzzy_merge(booking, tripadvisor)
 
+
+def getsoldout(df):
+
+    soldout = {'Price': 'Sold out'}
+    df2 = df.fillna(value=soldout)
+    df2 = df2.dropna()
+    dfsoldout = df2.loc[df2['Price'] == 'Sold out']
+    averagerating = round(dfsoldout['Rating'].mean(),1)
+    return averagerating, len(dfsoldout)
+
 #creates png file from a csv, takes in a site name a site name and city name and a figure count used to create seperate plots
 def initialize(csvfile, comb, figcount, closestmatch):
     # Read the .csv file to create a dataframe
     df = pd.read_csv(csvfile)
-    soldout = {'Price': 'Sold out'}
-    df2 = df.fillna(value=soldout)
-    df = df.dropna()
-    df2 = df2.dropna()
-    dfsoldout = df2.loc[df2['Price'] == 'Sold out']
-    print(dfsoldout)
     df.index.name = "Rank"
+    averagerating, soldout= getsoldout(df)
+    df = df.dropna()
     df.drop_duplicates(['Hotel name'], 'first', inplace=True)
-    fig = plotvalsites(df, comb, figcount, closestmatch)
-    return fig
+    rank = plotvalsites(df, comb, figcount, closestmatch)
+    return rank, averagerating, soldout
 
 
 if __name__ == '__main__':
