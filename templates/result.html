@@ -58,8 +58,10 @@ body {
 </div>
 <div class="column" style="background-color:#fc641d; font-weight:bold;">
 <h2>Tripadvisor</h2>
-
-<h3 id="notfoundtripadvisor" style="background-color: white; font-weight:bold;"> </h3>
+<div class="alert">
+<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+<strong>Warning!</strong>Property not found on Tripadvisor, make sure you didn't make a typo, that your property is available for those dates and that your property is available on that site"
+</div>
 <p>For dates {{ indate }} to {{ outdate }} looking for property name "{{ propertyname[1] }}"</p>
 <img src= {{ path2 }} alt="Tripadvisor">
 <h3>Number of sold out properties: {{ tripadvisorsoldout }} with an average rating: {{ tripadvisorrating }}</h3>
@@ -76,7 +78,7 @@ function notfound() {
         document.getElementById("notfoundbooking").innerHTML = "Property not found on Booking.com, make sure you didn't make a typo, that your property is available for those dates and that your property is available on that site";
     }
     else if (notfoundtripadvisor=='True'){
-        document.getElementById("notfoundtripadvisor").innerHTML = "Property not found on Tripadvisor, make sure you didn't make a typo, that your property is available for those dates and that your property is available on that site";
+        document.getElementById("notfoundtripadvisor").show
     }
 }
 </script>
