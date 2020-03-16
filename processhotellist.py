@@ -73,6 +73,7 @@ def plotvalsites(df, comb, figcount, closestmatch):
     axes.set_ylim([None, 10.5])
     pathname = 'static/images/' + comb + '.png'
     fig.savefig(pathname)
+    plt.close('all')
     return rank
 
 
