@@ -52,9 +52,9 @@ def generateBookingUrl(driver, location, indates, outdates):
 def booking(location, indates, outdates):
     url = "https://www.booking.com"
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    #chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=%s" % "1920,1080")
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome("./chromedriver", options=chrome_options)
     driver.get(url)
     classnameHotel = "sr-hotel__name"
     classnamePrice = "bui-u-sr-only"
@@ -88,7 +88,7 @@ def booking(location, indates, outdates):
                         modprice = rawelempriceList[i].splitlines()
                         priceListtemp.append(int(modprice[1].replace(",", "")))
 
-            rawsoldOut = driver.find_elements_by_css_selector(".sr_item_default")
+            rawsoldOut = driver.find_elements_by_css_selector("span.sr_item_default")
             for element in rawsoldOut:
                 rating.append(element.get_attribute('data-score').strip("\n").strip())
             soldOut = []

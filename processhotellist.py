@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
 
 
 # Prints entire dataframe
